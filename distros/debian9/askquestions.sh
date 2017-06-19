@@ -1,17 +1,18 @@
 #---------------------------------------------------------------------
-# Function: AskQuestions Debian 8
+# Function: AskQuestions Debian 9
 #    Ask for all needed user input
 #---------------------------------------------------------------------
 AskQuestions() {
 	  CFG_SETUP_WEB=yes #Needed for Multiserver setup compatibility
 	  CFG_SETUP_MAIL=yes #Needed for Multiserver setup compatibility
 	  CFG_SETUP_NS=yes #Needed for Multiserver setup compatibility
+      CFG_XCACHE=no # not available on Debian 9
 	  echo "Installing pre-required packages"
 	  [ -f /bin/whiptail ] && echo -e "whiptail found: ${green}OK${NC}\n"  || apt-get -y install whiptail > /dev/null 2>&1
 
 	  while [ "x$CFG_SQLSERVER" == "x" ]
 		  do
-				CFG_SQLSERVER=$(whiptail --title "SQLSERVER" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Select SQL Server type" 10 50 2 "MySQL" "(default)" ON "MariaDB" "" OFF 3>&1 1>&2 2>&3)
+				CFG_SQLSERVER=$(whiptail --title "SQLSERVER" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Select SQL Server type" 10 50 2 "MySQL" "" OFF "MariaDB" "(default)" ON 3>&1 1>&2 2>&3)
 		  done
 
 	  while [ "x$CFG_MYSQL_ROOT_PWD" == "x" ]

@@ -22,4 +22,13 @@ InstallSQLServer() {
     service mysql restart > /dev/null 2>&1
     echo -e "[${green}DONE${NC}]\n"
   fi	
+
+  cat << "EOF" > /etc/mysql/conf.d/99-sql-mode.cnf
+[mysqld]
+
+sql-mode="NO_ENGINE_SUBSTITUTION"
+EOF
+
+  service mysql restart > /dev/null 2>&1
+
 }

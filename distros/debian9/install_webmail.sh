@@ -14,14 +14,8 @@ InstallWebmail() {
 	  echo "roundcube-core roundcube/mysql/app-pass password $CFG_ROUNDCUBE_PWD" | debconf-set-selections
 	  echo "roundcube-core roundcube/app-password-confirm password $CFG_ROUNDCUBE_PWD" | debconf-set-selections
 	  echo "roundcube-core roundcube/hosts string localhost" | debconf-set-selections
-	  backports=$(cat /etc/apt/sources.list | grep jessie-backports | grep -v "#")
-	  if [ -z "$backports" ]; then
-	    echo -e "\n# jessie-backports, previously on backports.debian.org" >> /etc/apt/sources.list
-	    echo "deb http://http.debian.net/debian/ jessie-backports main contrib non-free" >> /etc/apt/sources.list
-	    echo "deb-src http://http.debian.net/debian/ jessie-backports main contrib non-free" >> /etc/apt/sources.list
-	  fi
 	  apt-get -qq update
-	  apt-get -yqq -t jessie-backports install roundcube roundcube-mysql roundcube-plugins > /dev/null 2>&1
+	  apt-get -yqq install roundcube roundcube-mysql roundcube-plugins > /dev/null 2>&1
 	  if [ $CFG_WEBSERVER == "apache" ]; then
 		mv /etc/roundcube/apache.conf /etc/roundcube/apache.conf.default
 		cat << "EOF" > /etc/roundcube/apache.conf
@@ -156,7 +150,7 @@ server {
         include /etc/nginx/fastcgi_params;
         # To access SquirrelMail, the default user (like www-data on Debian/Ubuntu) mu$
         #fastcgi_pass 127.0.0.1:9000;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_pass unix:/var/run/php7.0-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_buffer_size 128k;

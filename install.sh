@@ -112,8 +112,9 @@ else
 	exit 1
 fi
 
-if [ "$DISTRO" == "debian8" ]; then
-	     while [ "x$CFG_ISPCVERSION" == "x" ]
+if [ "$DISTRO" == "debian8" ] || [ "$DISTRO" == "debian9" ]; then
+	    [ -f /bin/whiptail ] && echo -e "whiptail found: ${green}OK${NC}\n" || apt-get update > /dev/null 2>&1 && apt-get -y install whiptail > /dev/null 2>&1
+	    while [ "x$CFG_ISPCVERSION" == "x" ]
           do
                 CFG_ISPCVERSION=$(whiptail --title "ISPConfig Version" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Select ISPConfig Version you want to install" 10 50 2 "Stable" "(default)" ON "Beta" "" OFF 3>&1 1>&2 2>&3)
           done

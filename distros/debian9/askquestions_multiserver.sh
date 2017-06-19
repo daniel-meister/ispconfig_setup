@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------
-# Function: AskQuestionsCluster Debian 8
+# Function: AskQuestionsCluster Debian 9
 #    Ask for all needed user input needed for the possible cluster setup
 #-----------------------------------------------------------------------------
 
@@ -9,7 +9,7 @@ AskQuestionsMultiserver(){
 
 	  while [ "x$CFG_SQLSERVER" == "x" ]
 	  do
-		CFG_SQLSERVER=$(whiptail --title "SQLSERVER" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Select SQL Server type" 10 50 2 "MySQL" "(default)" ON "MariaDB" "" OFF 3>&1 1>&2 2>&3)
+		CFG_SQLSERVER=$(whiptail --title "SQLSERVER" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Select SQL Server type" 10 50 2 "MySQL" "" OFF "MariaDB" "(default)" ON 3>&1 1>&2 2>&3)
 	  done
 
 	  while [ "x$CFG_MYSQL_ROOT_PWD" == "x" ]
