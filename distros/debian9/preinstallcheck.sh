@@ -15,7 +15,14 @@ PreInstallCheck() {
 
   if [ ! "$?" -eq 0 ]; then
         echo -e "${red}ERROR: Couldn't reach www.ispconfig.org, please check your internet connection${NC}"
-        exit 1;
+        # a local firewall could be blocking pings
+        # exit 1;
+      	read -p "Continue anyway (i.e. you are sure you have a working internet connection? (y/n)" -n 1 -r
+	    echo    # (optional) move to a new line
+	    if [[ ! $REPLY =~ ^[Yy]$ ]]
+		    then
+		    exit 1
+	    fi
   fi
   
   # Check for already installed ispconfig version
